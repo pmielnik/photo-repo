@@ -16,45 +16,48 @@ class database:
     FILESYSTEM = GridFS(DATABASE)
 
     @staticmethod
-    def insert(type: str, data: Dict)
-        if(type == 'users'){
-            USERS.insert_one(data)
-        }else if(type == 'photos'){
-            PHOTOS.insert_one(data)
-        }
+    def insertPhoto(data, filename, photoId=None):
+        if photoId is None:
+            return database.FILESYSTEM.put(data, filename=filename)
+        return database.FILESYSTEM.put(data, filename=filename, _id=photoId)
+    
+    @staticmethod
+    def findPhoto(photoId):
+        return database.FILESYSTEM.find_one(filter={'_id': photoId})
+
 
     @staticmethod
-    def insertMany(data: [Dict], photos: [str]){
-        for i in range(0, len(photos)-1){
-            data[i]['_id'] = FILESYSTEM.put(photoData)
-        }
+    def insert(collection: str, data: Dict):
+        if collection == 'users':
+            database.USERS.insert_one(data)
+        elif collection == 'photos':
+            database.PHOTOS.insert_one(data)
 
-        PHOTOS.insert_many(data)
-    }
-
-    @staticmethod
-    def update(type: str, dataFilter: Dict, data: Dict){
-        if(type == 'users'){
-            USERS.update(dataFilter, {'$set' : data})
-        }else if(type == 'photos'){
-            PHOTOS.update(dataFilter, {'$set' : data})
-        }
-    }
 
     @staticmethod
-    def delete(type: str, data: Dict){
-        if(type == 'users'){
-            USERS.delete_one(data)
-        }else if(type == 'photos'){
-            PHOTOS.delete_one(data)
-        }
-    }
+    def insertMany(data: [Dict], photos: [str]):
+        for i in range(0, len(photos)-1):
+            data[i]['_id'] = database.FILESYSTEM.put(photos)
+
+        database.PHOTOS.insert_many(data)
 
     @staticmethod
-    def find(type: str, dataFilter: Dict){
-        if(type == 'users'){
-            return USERS.find(dataFilter)
-        }else if(type == 'photos'){
-            return PHOTOS.find(dataFilter)
-        }
-    }
+    def update(collection: str, dataFilter: Dict, data: Dict):
+        if collection == 'users':
+            database.USERS.update(dataFilter, {'$set' : data})
+        elif collection == 'photos':
+            database.PHOTOS.update(dataFilter, {'$set' : data})
+
+    @staticmethod
+    def delete(collection: str, data: Dict):
+        if collection == 'users':
+            database.USERS.delete_one(data)
+        elif collection == 'photos':
+            database.PHOTOS.delete_one(data)
+
+    @staticmethod
+    def find(collection: str, dataFilter: Dict):
+        if collection == 'users' :
+            return database.USERS.find(dataFilter)
+        elif collection == 'photos':
+            return database.PHOTOS.find(dataFilter)
