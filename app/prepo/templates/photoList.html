@@ -1,0 +1,7 @@
+<h1>Photo Repo</h1>
+<ul>
+    {% for photo in object_list %}
+        <h3>{{ photo.photoName }}</h3>
+        <img src='{{ photo.image.url }}' alt='{{ photo.photoName }}'>
+    {% endfor %}
+</ul>
