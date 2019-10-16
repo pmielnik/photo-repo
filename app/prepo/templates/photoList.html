@@ -2,6 +2,6 @@
 <ul>
     {% for photo in object_list %}
         <h3>{{ photo.photoName }}</h3>
-        <img src='{{ photo.image.url }}' alt='{{ photo.photoName }}'>
+        <p>'{{photo.image}}</p>
     {% endfor %}
 </ul>

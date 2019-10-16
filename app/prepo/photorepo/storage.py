@@ -8,27 +8,37 @@ from werkzeug import secure_filename
 from PIL import Image
 import requests
 from io import BytesIO
+from django.utils.deconstruct import deconstructible
 
+@deconstructible
 class PhotoStorage(Storage):
-    #def __init__(self):
+    def __init__(self, url=None):
         #TODO: determine if need an "option" for photoID???
+        if url is None:
+            self.url = None
+        self.url = url
     
     def _open(self, _id):
-        response = requests.get(self.url)
-        img = Image.open(BytesIO(response.content))
-        return img
+        # breakpoint()
+        # response = requests.get(self.url)
+        # img = Image.open(BytesIO(response.content))
+        # return img
+        return self.url
 
     def _save(self, name, data):
+        # breakpoint()
         self.url = upload_file(data.read(), name, data.content_type)     #TODO: may not work
+        # print(self.url)
 
     def exists(self, name):
         return self.url != None
 
-    def url(self, name):
-        print(self.url)
-        if self.url == None:
-            return settings.MEDIA_ROOT + name
-        return self.url
+    # def url(self, name):
+    #     # breakpoint()
+    #     # print(self.url)
+    #     if self.url is None:
+    #         return settings.MEDIA_ROOT + '/' + name
+    #     return self.url
 
 def _safe_filename(filename):
     """
