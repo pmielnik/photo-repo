@@ -1,0 +1,5 @@
+Pillow==6.2.0
+Django==2.2.6
+google-cloud-storage==1.7.0
+six==1.11.0
+werkzeug==0.16.0

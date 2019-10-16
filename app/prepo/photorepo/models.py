@@ -1,4 +1,6 @@
 from django.db import models
+from .storage import PhotoStorage
+from django.urls import reverse
 
 # Create your models here.
 class Photo(models.Model):
@@ -8,4 +10,5 @@ class Photo(models.Model):
     # author      = models.CharField(max_length=500)
     tags        = models.CharField(max_length=1000, unique=True)
     date        = models.DateField(auto_now=True)
+    # image       = models.ImageField(storage=PhotoStorage()) # TODO: firgure out how to add proper url field???
     image       = models.ImageField(upload_to='images/') 
