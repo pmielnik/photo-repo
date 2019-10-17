@@ -33,7 +33,7 @@ class ImageDelete(DeleteView):
         self.get_object().image.storage.delete(self.get_object().image.name)
         self.get_object().delete(using=us)
         return redirect(self.success_url)
-    # slug_field = 'id'
 
-    # def get_object(self):
-    #     return self.queryset.get(id=self.kwargs['id'])
+class SearchPage(ListView):
+    model = Photo
+    template_name = 'photoSearch.html'

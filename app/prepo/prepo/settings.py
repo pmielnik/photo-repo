@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'photorepo.apps.PhotorepoConfig',
-    'photorepo.apps.templatetags'
+    'photorepo.templatetags'
 ]
 
 MIDDLEWARE = [
