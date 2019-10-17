@@ -13,6 +13,7 @@ from django.utils.deconstruct import deconstructible
 import sys
 import urllib.request
 
+
 @deconstructible
 class PhotoStorage(Storage):
     def __init__(self, url=None):
@@ -22,25 +23,28 @@ class PhotoStorage(Storage):
         self.url = url
     
     def _open(self, _id):
-        # breakpoint()
-        # response = requests.get(self.url)
-        # img = Image.open(BytesIO(response.content))
-        # return img
-        breakpoint()
         result = urllib.request.urlretrieve(self.url)
         return File(open(result[0], 'rb'))
 
+    # return the URL as the name of the file because couldn't figure out how to permanently update URL field
     def _save(self, name, data):
-        # breakpoint()
-        self.url = upload_file(data.read(), name, data.content_type)     #TODO: may not work
-        # print()
-        breakpoint()
-        print("url: " + self.url, file=sys.stderr)
-        return name #super(PhotoStorage, self)._save(name, data)
-        # super(PhotoStorage)._save(name, ))
+        self.name = name
+        self.url = upload_file(data.read(), name, data.content_type)
+        return self.url
 
     def exists(self, name):
         return self.url != None
+
+    def delete(self, name='', save=True):
+        storage_client = gStorage.Client()
+        bucket = storage_client.get_bucket(config.CLOUD_STORAGE_BUCKET)
+        blob = bucket.blob(storage_filename(name))
+
+        try:
+            blob.delete()
+        except Exception:
+            # don't need to do anythoing since we'll just be cleaning up the db for now
+            pass
 
     # def url(self, name):
     #     # breakpoint()
@@ -48,6 +52,9 @@ class PhotoStorage(Storage):
     #     if self.url is None:
     #         return settings.MEDIA_ROOT + '/' + name
     #     return self.url
+
+def storage_filename(dbname):
+    return dbname[dbname.rfind('/')+1:]
 
 def _safe_filename(filename):
     """
