@@ -1,7 +1,21 @@
-<h1>Photo Repo</h1>
-<ul>
-    {% for photo in object_list %}
-        <h3>{{ photo.photoName }}</h3>
-        <img src='{{ photo.image.name }}' alt='{{ photo.photoName }}'>
-    {% endfor %}
-</ul>
+{% load static %}
+
+<html>
+    <head>
+        <title>Photo Repo</title>
+        <link rel="stylesheet" href="{% static 'css/photorepo.css' %}">
+    </head>
+    <body>
+        <div class='Home'>
+            <h1>Photo Repo</h1>
+            <ul>
+                {% for photo in object_list %}
+                <div class='Photo'>
+                    <img src='{{ photo.image.name }}' alt='{{ photo.photoName }}'>
+                    <h3>{{ photo.photoName }}</h3>
+                </div>
+                {% endfor %}
+            </ul>
+        </div>
+    </body>
+</html>

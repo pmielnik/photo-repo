@@ -1,6 +1,18 @@
-<h1>Upload Photo</h1>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit New Photo</button>
-  </form>
+{% load static %}
+
+<html>
+  <head>
+      <title>Upload Photo</title>
+      <link rel="stylesheet" href="{% static 'css/photorepo.css' %}">
+  </head>
+  <body>
+    <div class='Upload'>
+      <h1>Upload Photo</h1>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit New Photo</button>
+      </form>
+    </div>
+  </body>
+</html>
