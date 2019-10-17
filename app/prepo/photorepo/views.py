@@ -10,6 +10,9 @@ class LandingPage(ListView):
     template_name = 'photoList.html'
 
     #TODO: implement a get() method!
+    def get(self, request):
+        breakpoint()
+        return super(LandingPage, self).get(request)
 
 class ImageUpload(CreateView):
     model = Photo

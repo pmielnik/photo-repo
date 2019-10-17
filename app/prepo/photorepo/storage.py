@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.core.files.storage import Storage
+from django.core.files import File
 from google.cloud import storage as gStorage
 import config
 import six
@@ -9,6 +10,8 @@ from PIL import Image
 import requests
 from io import BytesIO
 from django.utils.deconstruct import deconstructible
+import sys
+import urllib.request
 
 @deconstructible
 class PhotoStorage(Storage):
@@ -23,12 +26,18 @@ class PhotoStorage(Storage):
         # response = requests.get(self.url)
         # img = Image.open(BytesIO(response.content))
         # return img
-        return self.url
+        breakpoint()
+        result = urllib.request.urlretrieve(self.url)
+        return File(open(result[0], 'rb'))
 
     def _save(self, name, data):
         # breakpoint()
         self.url = upload_file(data.read(), name, data.content_type)     #TODO: may not work
-        # print(self.url)
+        # print()
+        breakpoint()
+        print("url: " + self.url, file=sys.stderr)
+        return name #super(PhotoStorage, self)._save(name, data)
+        # super(PhotoStorage)._save(name, ))
 
     def exists(self, name):
         return self.url != None
