@@ -4,7 +4,7 @@ from django.urls import reverse
 
 # Create your models here.
 class Photo(models.Model):
-    _id         = models.BigAutoField(primary_key=True)
+    pid         = models.BigAutoField(primary_key=True)
     photoName   = models.CharField(max_length=500)
     # authorId    = models.ForeignKey('User', on_delete=models.CASCADE)
     # author      = models.CharField(max_length=500)

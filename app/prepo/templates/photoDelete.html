@@ -1,6 +1,19 @@
-<div className='Delete'>
-<form method="post">{% csrf_token %}
-    <p>Are you sure you want to delete "{{ object.photoName }}"?</p>
-    <input type="submit" value="Confirm">
-</form>
-</div>
+{% load static %}
+
+<html>
+    <head>
+        <title>Photo Repo</title>
+        <link rel="stylesheet" href="{% static 'css/photorepo.css' %}">
+    </head>
+    <body>
+        <div class='Delete'>
+            <form method="post">{% csrf_token %}
+                <p>Are you sure you want to delete the photo {{ object.photoName }}?</p>
+                <img src='{{ object.image.name }}' alt='{{ object.photoName }}'>
+                <br>
+                <input type="submit" value="Delete">
+            </form>
+            <button onclick="window.location.href='/'">Back Home</button>
+        </div>
+    </body>
+</html>
