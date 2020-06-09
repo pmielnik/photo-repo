@@ -6,12 +6,10 @@ from .forms import PhotoForm
 from django.shortcuts import redirect
 from django.db import router
 
-# Create your views here.
 class LandingPage(ListView):
     model = Photo
     template_name = 'photoList.html'
 
-    #TODO: implement a get() method!
     def get(self, request):
         return super(LandingPage, self).get(request)
 
@@ -20,8 +18,6 @@ class ImageUpload(CreateView):
     form_class = PhotoForm
     template_name = 'photoUpload.html'
     success_url = reverse_lazy('landing')
-
-    #TODO: implement a post() method!
 
 class ImageDelete(DeleteView):
     model = Photo

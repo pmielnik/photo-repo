@@ -17,7 +17,6 @@ import urllib.request
 @deconstructible
 class PhotoStorage(Storage):
     def __init__(self, url=None):
-        #TODO: determine if need an "option" for photoID???
         if url is None:
             self.url = None
         self.url = url
@@ -43,15 +42,9 @@ class PhotoStorage(Storage):
         try:
             blob.delete()
         except Exception:
-            # don't need to do anythoing since we'll just be cleaning up the db for now
+            # don't need to do anything since we'll just be cleaning up the db for now
             pass
 
-    # def url(self, name):
-    #     # breakpoint()
-    #     # print(self.url)
-    #     if self.url is None:
-    #         return settings.MEDIA_ROOT + '/' + name
-    #     return self.url
 
 def storage_filename(dbname):
     return dbname[dbname.rfind('/')+1:]

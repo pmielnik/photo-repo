@@ -2,7 +2,6 @@ from django.db import models
 from .storage import PhotoStorage
 from django.urls import reverse
 
-# Create your models here.
 class Photo(models.Model):
     pid         = models.BigAutoField(primary_key=True)
     photoName   = models.CharField(max_length=500)
