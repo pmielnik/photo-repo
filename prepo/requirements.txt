@@ -4,4 +4,4 @@ google-cloud-storage==1.7.0
 six==1.11.0
 werkzeug==0.16.0
 google-cloud-datastore==1.10.0
-djangorestframework==3.10.3
+djangorestframework==3.11.2
